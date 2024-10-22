@@ -25,6 +25,8 @@ import {
   ShopOutlined,
   FilterOutlined,
   WalletOutlined,
+  UsergroupAddOutlined,
+  BulbOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -32,7 +34,7 @@ const { Sider } = Layout;
 export default function Navigation() {
   const { isMobile } = useResponsive();
 
-  return isMobile ? <MobileSidebar /> : <Sidebar collapsible={false} />;
+  return isMobile ? <MobileSidebar /> : <Sidebar collapsible={false} />; 
 }
 
 function Sidebar({ collapsible, isMobile = false }) {
@@ -49,14 +51,70 @@ function Sidebar({ collapsible, isMobile = false }) {
 
   const items = [
     {
-      key: 'expenses',
-      icon: <WalletOutlined />,
-      label: <Link to={'/expenses'}>{translate('expense')}</Link>,
+      key: 'contact',
+      icon: <UsergroupAddOutlined />,
+      label: <Link to={'/customer'}>{translate('Contact')}</Link>,
     },
     {
-      key: 'expensesCategory',
+      key: 'company',
+      icon: <ShopOutlined />,
+      label: <Link to={'/company'}>{translate('companies')}</Link>,
+    },
+    {
+      key: 'lead',
+      // icon: <FilterOutlined />,
+      icon: <BulbOutlined />,
+      // label: <Link to={'/lead'}>{translate('leads')}</Link>,
+      label: <Link to={'/lead'}>{translate('Opportunity')}</Link>,
+    },
+    {
+      key: 'offer',
+      icon: <FileOutlined />,
+      label: <Link to={'/offer'}>{translate('Quote')}</Link>,
+    },
+    {
+      key: 'offer',
+      icon: <FileOutlined />,
+      label: <Link to={'/offer'}>{translate('Task')}</Link>,
+    },
+    {
+      key: 'offer',
+      icon: <FileOutlined />,
+      label: <Link to={'/offer'}>{translate('Note')}</Link>,
+    },
+    {
+      key: 'offer',
+      icon: <FileOutlined />,
+      label: <Link to={'/offer'}>{translate('Attachment')}</Link>,
+    },
+    {
+      key: 'offer',
+      icon: <FileOutlined />,
+      label: <Link to={'/offer'}>{translate('Ticket')}</Link>,
+    },
+    {
+      label: translate('Settings'),
+      key: 'settings',
       icon: <SettingOutlined />,
-      label: <Link to={'/category/expenses'}>{translate('expenses_Category')}</Link>,
+      children: [
+        {
+          key: 'generalSettings',
+          label: <Link to={'/settings'}>{translate('settings')}</Link>,
+        },
+
+        {
+          key: 'paymentMode',
+          label: <Link to={'/payment/mode'}>{translate('payments_mode')}</Link>,
+        },
+        {
+          key: 'taxes',
+          label: <Link to={'/taxes'}>{translate('taxes')}</Link>,
+        },
+        {
+          key: 'about',
+          label: <Link to={'/about'}>{translate('about')}</Link>,
+        },
+      ],
     },
   ];
 

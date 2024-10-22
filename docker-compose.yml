@@ -26,7 +26,7 @@ services:
       NODE_ENV: "production"
       OPENSSL_CONF: '/dev/null'
       PUBLIC_SERVER_FILE: "http://localhost:8888/"
-      WEB_URL: "http://localhost:3000"
+      WEB_URL: "http://localhost:3001"
 
   # Frontend (React.js) Service
   frontend:

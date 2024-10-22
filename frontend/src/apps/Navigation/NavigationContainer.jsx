@@ -36,7 +36,7 @@ import { selectLangDirection } from '@/redux/translate/selectors';
 
 const { Sider } = Layout;
 
-export default function Navigation() {
+export default function Navigation() { 
   const { isMobile } = useResponsive();
 
   return isMobile ? <MobileSidebar /> : <Sidebar collapsible={false} />;
@@ -58,93 +58,93 @@ function Sidebar({ collapsible, isMobile = false }) {
     {
       key: 'dashboard',
       icon: <DashboardOutlined />,
-      label: <Link to={'/'}>{translate('dashboard')}</Link>,
+      label: <Link to={'/crm/'}>{translate('dashboard')}</Link>,
     },
     {
       key: 'contact',
       icon: <UsergroupAddOutlined />,
-      label: <Link to={'/customer'}>{translate('Contact')}</Link>,
+      label: <Link to={'/crm/customer'}>{translate('Contact')}</Link>,
     },
     {
       key: 'customer',
       icon: <CustomerServiceOutlined />,
-      label: <Link to={'/customer'}>{translate('customers')}</Link>,
+      label: <Link to={'/crm/customer'}>{translate('customers')}</Link>,
     },
     {
       key: 'people',
       icon: <UserOutlined />,
-      label: <Link to={'/people'}>{translate('peoples')}</Link>,
+      label: <Link to={'/crm/people'}>{translate('peoples')}</Link>,
     },
     {
       key: 'company',
       icon: <ShopOutlined />,
-      label: <Link to={'/company'}>{translate('companies')}</Link>,
+      label: <Link to={'/crm/company'}>{translate('companies')}</Link>,
     },
     {
       key: 'lead',
       // icon: <FilterOutlined />,
       icon: <BulbOutlined />,
-      // label: <Link to={'/lead'}>{translate('leads')}</Link>,
-      label: <Link to={'/lead'}>{translate('Opportunity')}</Link>,
+      // label: <Link to={'/crm/lead'}>{translate('leads')}</Link>,
+      label: <Link to={'/crm/lead'}>{translate('Opportunity')}</Link>,
     },
     {
       key: 'offer',
       icon: <FileOutlined />,
-      label: <Link to={'/offer'}>{translate('offers')}</Link>,
+      label: <Link to={'/crm/offer'}>{translate('offers')}</Link>,
     },
     {
       key: 'invoice',
       icon: <ContainerOutlined />,
-      label: <Link to={'/invoice'}>{translate('invoices')}</Link>,
+      label: <Link to={'/crm/invoice'}>{translate('invoices')}</Link>,
     },
     {
       key: 'quote',
       icon: <FileSyncOutlined />,
-      label: <Link to={'/quote'}>{translate('proforma invoices')}</Link>,
+      label: <Link to={'/crm/quote'}>{translate('proforma invoices')}</Link>,
     },
     {
       key: 'payment',
       icon: <CreditCardOutlined />,
-      label: <Link to={'/payment'}>{translate('payments')}</Link>,
+      label: <Link to={'/crm/payment'}>{translate('payments')}</Link>,
     },
     {
       key: 'expenses',
       icon: <PlusSquareOutlined />,
-      label: <Link to={'/expenses'}>{translate('Purchase')}</Link>,
-      // label: <Link to={'/expenses'}>{translate('expenses')}</Link>,
+      label: <Link to={'/crm/expenses'}>{translate('Purchase')}</Link>,
+      // label: <Link to={'/crm/expenses'}>{translate('expenses')}</Link>,
     },
     {
       key: 'expenses',
       icon: <MinusSquareOutlined />,
-      label: <Link to={'/expenses'}>{translate('Sale')}</Link>,
+      label: <Link to={'/crm/expenses'}>{translate('Sale')}</Link>,
     },
     {
       key: 'expenses',
       icon: <WalletOutlined />,
-      label: <Link to={'/expenses'}>{translate('Accounts')}</Link>,
+      label: <Link to={'/crm/expenses'}>{translate('Accounts')}</Link>,
     },
     {
       key: 'expenses',
       icon: <FileOutlined />,
-      label: <Link to={'/expenses'}>{translate('Report')}</Link>,
+      label: <Link to={'/crm/expenses'}>{translate('Report')}</Link>,
     },
     // {
     //   key: 'expensesCategory',
     //   icon: <ReconciliationOutlined />,
-    //   label: <Link to={'/category/expenses'}>{translate('expenses_Category')}</Link>,
+    //   label: <Link to={'/crm/category/expenses'}>{translate('expenses_Category')}</Link>,
     // },
 
     {
       key: 'product',
       icon: <TagOutlined />,
-      // label: <Link to={'/product'}>{translate('products')}</Link>,
-      label: <Link to={'/product'}>{translate('Inventory')}</Link>,
+      // label: <Link to={'/crm/product'}>{translate('products')}</Link>,
+      label: <Link to={'/crm/product'}>{translate('Inventory')}</Link>,
     },
     {
       key: 'categoryproduct',
       icon: <TagsOutlined />,
-      label: <Link to={'/category/product'}>{translate('Inventory Category')}</Link>,
-      // label: <Link to={'/category/product'}>{translate('products_category')}</Link>,
+      label: <Link to={'/crm/category/product'}>{translate('Inventory Category')}</Link>,
+      // label: <Link to={'/crm/category/product'}>{translate('products_category')}</Link>,
     },
     {
       label: translate('Settings'),
@@ -153,20 +153,20 @@ function Sidebar({ collapsible, isMobile = false }) {
       children: [
         {
           key: 'generalSettings',
-          label: <Link to={'/settings'}>{translate('settings')}</Link>,
+          label: <Link to={'/crm/settings'}>{translate('settings')}</Link>,
         },
 
         {
           key: 'paymentMode',
-          label: <Link to={'/payment/mode'}>{translate('payments_mode')}</Link>,
+          label: <Link to={'/crm/payment/mode'}>{translate('payments_mode')}</Link>,
         },
         {
           key: 'taxes',
-          label: <Link to={'/taxes'}>{translate('taxes')}</Link>,
+          label: <Link to={'/crm/taxes'}>{translate('taxes')}</Link>,
         },
         {
           key: 'about',
-          label: <Link to={'/about'}>{translate('about')}</Link>,
+          label: <Link to={'/crm/about'}>{translate('about')}</Link>,
         },
       ],
     },
