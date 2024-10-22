@@ -22,32 +22,32 @@ export default function SideContent() {
       className="sideContent"
     >
       <div style={{ width: '100%' }}>
-        <img
+        {/* <img
           src={logo}
           alt="IDURAR ERP CRM"
           style={{ margin: '0 auto 40px', display: 'block' }}
           height={63}
           width={220}
-        />
+        /> */}
         <div className="space40"></div>
-        <Title level={3}>{translate('Manage your company with')} :</Title>
+        {/* <Title level={3}>{translate('Manage your company with')} :</Title> */}
 
         <div className="space20"></div>
         <ul className="list-checked" style={{paddingRight:0}}>
-          <li className={`list-checked-item ${langDirection === "rtl" ? "list-checked-item-right" : "list-checked-item-left"}`}>
+          {/* <li className={`list-checked-item ${langDirection === "rtl" ? "list-checked-item-right" : "list-checked-item-left"}`}>
             <Space direction="vertical">
               <Text strong>{translate('All-in-one tool')}</Text>
 
               <Text>{translate('Run and scale your ERP CRM Apps')}</Text>
             </Space>
-          </li>
+          </li> */}
 
-          <li className={`list-checked-item ${langDirection === "rtl" ? "list-checked-item-right" : "list-checked-item-left"}`}>
+          {/* <li className={`list-checked-item ${langDirection === "rtl" ? "list-checked-item-right" : "list-checked-item-left"}`}>
             <Space direction="vertical">
               <Text strong>{translate('Easily add and manage your services')}</Text>
               <Text>{translate('It brings together your invoice clients and leads')}</Text>
             </Space>
-          </li>
+          </li> */}
         </ul>
         <Divider />
         <div
