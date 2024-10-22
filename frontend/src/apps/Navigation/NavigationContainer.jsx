@@ -30,6 +30,9 @@ import {
   BulbOutlined,
   PlusSquareOutlined,
   MinusSquareOutlined,
+  CodeSandboxOutlined,
+  ShoppingCartOutlined,
+  CheckSquareOutlined,
 } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { selectLangDirection } from '@/redux/translate/selectors';
@@ -61,51 +64,10 @@ function Sidebar({ collapsible, isMobile = false }) {
       label: <Link to={'/crm/'}>{translate('dashboard')}</Link>,
     },
     {
-      key: 'contact',
-      icon: <UsergroupAddOutlined />,
-      label: <Link to={'/crm/customer'}>{translate('Contact')}</Link>,
-    },
-    {
-      key: 'customer',
-      icon: <CustomerServiceOutlined />,
-      label: <Link to={'/crm/customer'}>{translate('customers')}</Link>,
-    },
-    {
-      key: 'people',
-      icon: <UserOutlined />,
-      label: <Link to={'/crm/people'}>{translate('peoples')}</Link>,
-    },
-    {
-      key: 'company',
-      icon: <ShopOutlined />,
-      label: <Link to={'/crm/company'}>{translate('companies')}</Link>,
-    },
-    {
-      key: 'lead',
-      // icon: <FilterOutlined />,
-      icon: <BulbOutlined />,
-      // label: <Link to={'/crm/lead'}>{translate('leads')}</Link>,
-      label: <Link to={'/crm/lead'}>{translate('Opportunity')}</Link>,
-    },
-    {
-      key: 'offer',
-      icon: <FileOutlined />,
-      label: <Link to={'/crm/offer'}>{translate('offers')}</Link>,
-    },
-    {
-      key: 'invoice',
-      icon: <ContainerOutlined />,
-      label: <Link to={'/crm/invoice'}>{translate('invoices')}</Link>,
-    },
-    {
-      key: 'quote',
-      icon: <FileSyncOutlined />,
-      label: <Link to={'/crm/quote'}>{translate('proforma invoices')}</Link>,
-    },
-    {
-      key: 'payment',
-      icon: <CreditCardOutlined />,
-      label: <Link to={'/crm/payment'}>{translate('payments')}</Link>,
+      key: 'product',
+      icon: <CodeSandboxOutlined />,
+      // label: <Link to={'/crm/product'}>{translate('products')}</Link>,
+      label: <Link to={'/crm/product'}>{translate('Inventory')}</Link>,
     },
     {
       key: 'expenses',
@@ -128,24 +90,32 @@ function Sidebar({ collapsible, isMobile = false }) {
       icon: <FileOutlined />,
       label: <Link to={'/crm/expenses'}>{translate('Report')}</Link>,
     },
-    // {
-    //   key: 'expensesCategory',
-    //   icon: <ReconciliationOutlined />,
-    //   label: <Link to={'/crm/category/expenses'}>{translate('expenses_Category')}</Link>,
-    // },
-
     {
-      key: 'product',
-      icon: <TagOutlined />,
-      // label: <Link to={'/crm/product'}>{translate('products')}</Link>,
-      label: <Link to={'/crm/product'}>{translate('Inventory')}</Link>,
+      key: 'pos',
+      icon: <ShoppingCartOutlined />,
+      label: <Link to={'/crm/pos'}>{translate('POS')}</Link>,
     },
     {
-      key: 'categoryproduct',
-      icon: <TagsOutlined />,
-      label: <Link to={'/crm/category/product'}>{translate('Inventory Category')}</Link>,
-      // label: <Link to={'/crm/category/product'}>{translate('products_category')}</Link>,
+      key: 'offer',
+      icon: <CheckSquareOutlined />,
+      label: <Link to={'/crm/task'}>{translate('Task')}</Link>,
     },
+    {
+      key: 'media',
+      icon: <CheckSquareOutlined />,
+      label: <Link to={'/crm/media'}>{translate('Media')}</Link>,
+    },
+    {
+      key: 'email',
+      icon: <CheckSquareOutlined />,
+      label: <Link to={'/crm/email'}>{translate('Email')}</Link>,
+    },
+    {
+      key: 'store',
+      icon: <CheckSquareOutlined />,
+      label: <Link to={'/crm/store'}>{translate('Store')}</Link>,
+    },
+    
     {
       label: translate('Settings'),
       key: 'settings',

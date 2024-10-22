@@ -27,6 +27,8 @@ import {
   WalletOutlined,
   UsergroupAddOutlined,
   BulbOutlined,
+  LinkOutlined,
+  CheckSquareOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -74,7 +76,7 @@ function Sidebar({ collapsible, isMobile = false }) {
     },
     {
       key: 'offer',
-      icon: <FileOutlined />,
+      icon: <CheckSquareOutlined />,
       label: <Link to={'/offer'}>{translate('Task')}</Link>,
     },
     {
@@ -84,12 +86,12 @@ function Sidebar({ collapsible, isMobile = false }) {
     },
     {
       key: 'offer',
-      icon: <FileOutlined />,
+      icon: <LinkOutlined />,
       label: <Link to={'/offer'}>{translate('Attachment')}</Link>,
     },
     {
       key: 'offer',
-      icon: <FileOutlined />,
+      icon: <TagOutlined />,
       label: <Link to={'/offer'}>{translate('Ticket')}</Link>,
     },
     {
