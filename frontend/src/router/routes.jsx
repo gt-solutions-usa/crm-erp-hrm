@@ -1,3 +1,4 @@
+import LoadingPage from '@/pages/Loading';
 import { lazy } from 'react';
 
 import { Navigate } from 'react-router-dom';
@@ -67,6 +68,14 @@ let routes = {
     },
     {
       path: '/',
+      element: <LoadingPage />,
+    },
+    {
+      path: '/crm',
+      element: <Dashboard />,
+    },
+    {
+      path: '/erp',
       element: <Dashboard />,
     },
     {

@@ -23,8 +23,18 @@ import useResponsive from '@/hooks/useResponsive';
 
 import storePersist from '@/redux/storePersist';
 import { selectLangDirection } from '@/redux/translate/selectors';
+import { useLocation } from 'react-router-dom';
 
 export default function ErpCrmApp() {
+  const location = useLocation()
+
+  let PAGE = ''
+  if (location?.pathname?.includes('crm')) {
+    PAGE = 'crm'
+  } else if (location?.pathname?.includes('erp')) {
+    PAGE = 'erp'
+  }
+
   const { Content } = Layout;
 
   const { state: stateApp, appContextAction } = useAppContext();
@@ -55,8 +65,8 @@ export default function ErpCrmApp() {
   if (settingIsloaded)
     return (
       <Layout hasSider style={{ flexDirection: langDirection === 'rtl' ? 'row-reverse' : 'row' }}>
-        {/* {currentApp === 'default' ? <Navigation /> : <ExpensesNav />} */}
-        <Navigation />
+        {PAGE === 'crm' ? <Navigation /> : PAGE === 'erp' ? <ExpensesNav /> : <></>}
+        {/* <Navigation /> */}
 
         {isMobile ? (
           <Layout style={{ marginLeft: 0 }}>
@@ -78,10 +88,10 @@ export default function ErpCrmApp() {
             <HeaderContent />
             <Content
               style={{
-                margin: '40px auto 30px',
+                margin: PAGE==='' ? '' : '40px auto 30px',
                 overflow: 'initial',
                 width: '100%',
-                padding: '0 50px',
+                padding: PAGE==='' ? '' : '0 50px',
                 maxWidth: 1400,
               }}
             >

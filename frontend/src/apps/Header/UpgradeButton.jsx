@@ -55,6 +55,7 @@ export default function UpgradeButton() {
       // </>
     );
   };
+  return null
 
   return (
     <Popover content={<Content />} trigger="click">

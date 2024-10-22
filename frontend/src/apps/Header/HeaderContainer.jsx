@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Dropdown, Layout } from 'antd';
 
 // import Notifications from '@/components/Notification';
@@ -17,6 +17,8 @@ import UpgradeButton from './UpgradeButton';
 import { selectLangDirection } from '@/redux/translate/selectors';
 
 export default function HeaderContent() {
+  const location = useLocation()
+
   const currentAdmin = useSelector(selectCurrentAdmin);
   const { Header } = Layout;
 
@@ -87,6 +89,9 @@ export default function HeaderContent() {
   ];
 
   const langDirection = useSelector(selectLangDirection);
+
+  if (location.pathname === '/') return null
+
   return (
     <Header
       style={{
