@@ -5,7 +5,7 @@ import { Button, Drawer, Layout, Menu } from 'antd';
 import { useAppContext } from '@/context/appContext';
 
 import useLanguage from '@/locale/useLanguage';
-import logoIcon from '@/style/images/logo-icon.svg';
+import logoIcon from '@/style/images/logo-icon.png';
 import logoText from '@/style/images/logo-text.svg';
 
 import useResponsive from '@/hooks/useResponsive';
@@ -26,7 +26,13 @@ import {
   FilterOutlined,
   WalletOutlined,
   ReconciliationOutlined,
+  UsergroupAddOutlined,
+  BulbOutlined,
+  PlusSquareOutlined,
+  MinusSquareOutlined,
 } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
+import { selectLangDirection } from '@/redux/translate/selectors';
 
 const { Sider } = Layout;
 
@@ -55,11 +61,37 @@ function Sidebar({ collapsible, isMobile = false }) {
       label: <Link to={'/'}>{translate('dashboard')}</Link>,
     },
     {
+      key: 'contact',
+      icon: <UsergroupAddOutlined />,
+      label: <Link to={'/customer'}>{translate('Contact')}</Link>,
+    },
+    {
       key: 'customer',
       icon: <CustomerServiceOutlined />,
       label: <Link to={'/customer'}>{translate('customers')}</Link>,
     },
-
+    {
+      key: 'people',
+      icon: <UserOutlined />,
+      label: <Link to={'/people'}>{translate('peoples')}</Link>,
+    },
+    {
+      key: 'company',
+      icon: <ShopOutlined />,
+      label: <Link to={'/company'}>{translate('companies')}</Link>,
+    },
+    {
+      key: 'lead',
+      // icon: <FilterOutlined />,
+      icon: <BulbOutlined />,
+      // label: <Link to={'/lead'}>{translate('leads')}</Link>,
+      label: <Link to={'/lead'}>{translate('Opportunity')}</Link>,
+    },
+    {
+      key: 'offer',
+      icon: <FileOutlined />,
+      label: <Link to={'/offer'}>{translate('offers')}</Link>,
+    },
     {
       key: 'invoice',
       icon: <ContainerOutlined />,
@@ -68,33 +100,75 @@ function Sidebar({ collapsible, isMobile = false }) {
     {
       key: 'quote',
       icon: <FileSyncOutlined />,
-      label: <Link to={'/quote'}>{translate('quote')}</Link>,
+      label: <Link to={'/quote'}>{translate('proforma invoices')}</Link>,
     },
     {
       key: 'payment',
       icon: <CreditCardOutlined />,
       label: <Link to={'/payment'}>{translate('payments')}</Link>,
     },
+    {
+      key: 'expenses',
+      icon: <PlusSquareOutlined />,
+      label: <Link to={'/expenses'}>{translate('Purchase')}</Link>,
+      // label: <Link to={'/expenses'}>{translate('expenses')}</Link>,
+    },
+    {
+      key: 'expenses',
+      icon: <MinusSquareOutlined />,
+      label: <Link to={'/expenses'}>{translate('Sale')}</Link>,
+    },
+    {
+      key: 'expenses',
+      icon: <WalletOutlined />,
+      label: <Link to={'/expenses'}>{translate('Accounts')}</Link>,
+    },
+    {
+      key: 'expenses',
+      icon: <FileOutlined />,
+      label: <Link to={'/expenses'}>{translate('Report')}</Link>,
+    },
+    // {
+    //   key: 'expensesCategory',
+    //   icon: <ReconciliationOutlined />,
+    //   label: <Link to={'/category/expenses'}>{translate('expenses_Category')}</Link>,
+    // },
 
     {
-      key: 'paymentMode',
-      label: <Link to={'/payment/mode'}>{translate('payments_mode')}</Link>,
-      icon: <WalletOutlined />,
+      key: 'product',
+      icon: <TagOutlined />,
+      // label: <Link to={'/product'}>{translate('products')}</Link>,
+      label: <Link to={'/product'}>{translate('Inventory')}</Link>,
     },
     {
-      key: 'taxes',
-      label: <Link to={'/taxes'}>{translate('taxes')}</Link>,
-      icon: <ShopOutlined />,
+      key: 'categoryproduct',
+      icon: <TagsOutlined />,
+      label: <Link to={'/category/product'}>{translate('Inventory Category')}</Link>,
+      // label: <Link to={'/category/product'}>{translate('products_category')}</Link>,
     },
     {
-      key: 'generalSettings',
-      label: <Link to={'/settings'}>{translate('settings')}</Link>,
+      label: translate('Settings'),
+      key: 'settings',
       icon: <SettingOutlined />,
-    },
-    {
-      key: 'about',
-      label: <Link to={'/about'}>{translate('about')}</Link>,
-      icon: <ReconciliationOutlined />,
+      children: [
+        {
+          key: 'generalSettings',
+          label: <Link to={'/settings'}>{translate('settings')}</Link>,
+        },
+
+        {
+          key: 'paymentMode',
+          label: <Link to={'/payment/mode'}>{translate('payments_mode')}</Link>,
+        },
+        {
+          key: 'taxes',
+          label: <Link to={'/taxes'}>{translate('taxes')}</Link>,
+        },
+        {
+          key: 'about',
+          label: <Link to={'/about'}>{translate('about')}</Link>,
+        },
+      ],
     },
   ];
 
@@ -122,6 +196,7 @@ function Sidebar({ collapsible, isMobile = false }) {
     navMenu.collapse();
   };
 
+  const langDirection = useSelector(selectLangDirection);
   return (
     <Sider
       collapsible={collapsible}
@@ -132,14 +207,15 @@ function Sidebar({ collapsible, isMobile = false }) {
       style={{
         overflow: 'auto',
         height: '100vh',
-
+        direction: langDirection,
         position: isMobile ? 'absolute' : 'relative',
         bottom: '20px',
         ...(!isMobile && {
-          // border: 'none',
-          ['left']: '20px',
+          background: 'none',
+          border: 'none',
+          [langDirection === 'rtl' ? 'right' : 'left']: '20px',
           top: '20px',
-          // borderRadius: '8px',
+          borderRadius: '8px',
         }),
       }}
       theme={'light'}
@@ -153,16 +229,18 @@ function Sidebar({ collapsible, isMobile = false }) {
       >
         <img src={logoIcon} alt="Logo" style={{ marginLeft: '-5px', height: '40px' }} />
 
+
         {!showLogoApp && (
-          <img
-            src={logoText}
-            alt="Logo"
-            style={{
-              marginTop: '3px',
-              marginLeft: '10px',
-              height: '38px',
-            }}
-          />
+          // <img
+          //   src={logoText}
+          //   alt="Logo"
+          //   style={{
+          //     marginTop: '3px',
+          //     marginLeft: '10px',
+          //     height: '38px',
+          //   }}
+          // />
+          <></>
         )}
       </div>
       <Menu
@@ -171,6 +249,8 @@ function Sidebar({ collapsible, isMobile = false }) {
         theme={'light'}
         selectedKeys={[currentPath]}
         style={{
+          background: 'none',
+          border: 'none',
           width: 256,
         }}
       />
@@ -187,6 +267,7 @@ function MobileSidebar() {
     setVisible(false);
   };
 
+  const langDirection = useSelector(selectLangDirection);
   return (
     <>
       <Button
@@ -194,14 +275,17 @@ function MobileSidebar() {
         size="large"
         onClick={showDrawer}
         className="mobile-sidebar-btn"
-        style={{ ['marginLeft']: 25 }}
+        style={{ [langDirection === 'rtl' ? 'marginRight' : 'marginLeft']: 25 }}
       >
         <MenuOutlined style={{ fontSize: 18 }} />
       </Button>
       <Drawer
         width={250}
-        // style={{ backgroundColor: 'rgba(255, 255, 255, 1)' }}
-        placement={'left'}
+        contentWrapperStyle={{
+          boxShadow: 'none',
+        }}
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}
+        placement={langDirection === 'rtl' ? 'right' : 'left'}
         closable={false}
         onClose={onClose}
         open={visible}
