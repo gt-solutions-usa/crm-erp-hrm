@@ -1,3 +1,4 @@
+import CustomerView from '@/pages/CustomerView';
 import LoadingPage from '@/pages/Loading';
 import { lazy } from 'react';
 
@@ -63,7 +64,7 @@ let routes = {
       element: <Logout />,
     },
     {
-      path: '/about',
+      path: '/crm/about',
       element: <About />,
     },
     {
@@ -80,121 +81,125 @@ let routes = {
     },
     {
       path: '/customer',
+      element: <CustomerView />,
+    },
+    {
+      path: '/crm/customer',
       element: <Customer />,
     },
     {
-      path: '/people',
+      path: '/crm/people',
       element: <People />,
     },
     {
-      path: '/company',
+      path: '/crm/company',
       element: <Company />,
     },
     {
-      path: '/product',
+      path: '/crm/product',
       element: <Product />,
     },
     {
-      path: '/category/product',
+      path: '/crm/category/product',
       element: <ProductCategory />,
     },
 
     {
-      path: '/invoice',
+      path: '/crm/invoice',
       element: <Invoice />,
     },
     {
-      path: '/invoice/create',
+      path: '/crm/invoice/create',
       element: <InvoiceCreate />,
     },
     {
-      path: '/invoice/read/:id',
+      path: '/crm/invoice/read/:id',
       element: <InvoiceRead />,
     },
     {
-      path: '/invoice/update/:id',
+      path: '/crm/invoice/update/:id',
       element: <InvoiceUpdate />,
     },
     {
-      path: '/invoice/pay/:id',
+      path: '/crm/invoice/pay/:id',
       element: <InvoiceRecordPayment />,
     },
     {
-      path: '/quote',
+      path: '/crm/quote',
       element: <Quote />,
     },
     {
-      path: '/quote/create',
+      path: '/crm/quote/create',
       element: <QuoteCreate />,
     },
     {
-      path: '/quote/read/:id',
+      path: '/crm/quote/read/:id',
       element: <QuoteRead />,
     },
     {
-      path: '/quote/update/:id',
+      path: '/crm/quote/update/:id',
       element: <QuoteUpdate />,
     },
     {
-      path: '/payment',
+      path: '/crm/payment',
       element: <Payment />,
     },
     {
-      path: '/payment/read/:id',
+      path: '/crm/payment/read/:id',
       element: <PaymentRead />,
     },
     {
-      path: '/payment/update/:id',
+      path: '/crm/payment/update/:id',
       element: <PaymentUpdate />,
     },
 
     {
-      path: '/settings',
+      path: '/crm/settings',
       element: <Settings />,
     },
     {
-      path: '/settings/edit/:settingsKey',
+      path: '/crm/settings/edit/:settingsKey',
       element: <Settings />,
     },
     {
-      path: '/payment/mode',
+      path: '/crm/payment/mode',
       element: <PaymentMode />,
     },
     {
-      path: '/taxes',
+      path: '/crm/taxes',
       element: <Taxes />,
     },
 
     {
-      path: '/settings/advanced',
+      path: '/crm/settings/advanced',
       element: <AdvancedSettings />,
     },
     {
-      path: '/profile',
+      path: '/crm/profile',
       element: <Profile />,
     },
     {
-      path: '/lead',
+      path: '/crm/lead',
       element: <Lead />,
     },
     {
-      path: '/offer',
+      path: '/crm/offer',
       element: <Offer />,
     },
     {
-      path: '/offer/create',
+      path: '/crm/offer/create',
       element: <OfferCreate />,
     },
     {
-      path: '/offer/read/:id',
+      path: '/crm/offer/read/:id',
       element: <OfferRead />,
     },
     {
-      path: '/offer/update/:id',
+      path: '/crm/offer/update/:id',
       element: <OfferUpdate />,
     },
     {
-      path: '/expenses',
+      path: '/crm/expenses',
       element: <Expense />,
     },
     {
