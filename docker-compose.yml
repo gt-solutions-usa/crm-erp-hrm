@@ -1,44 +1,51 @@
-version: '3'
+version: "3.8"
 services:
-  # MongoDB Service
-  mongo:
-    image: mongo:6.0
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-
-  # Backend (Node.js API) Service
   backend:
-    build:
-      context: ./backend  # Path to the backend directory
-    ports:
-      - "8888:8888"  # Map the backend port
+    build: ./backend
     volumes:
-      - ./backend:/app  # Sync backend code to /app in the container
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "8888:8888"
     environment:
-      DATABASE: "mongodb+srv://development:PUvFHsb3l47Ez524@cluster0.c5cjb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-      PORT: 8888
-      JWT_SECRET: "your_private_jwt_secret_key"
-      NODE_ENV: "production"
-      OPENSSL_CONF: '/dev/null'
-      PUBLIC_SERVER_FILE: "http://localhost:8888/"
-      WEB_URL: "http://localhost:3000"
+      - NODE_ENV=development
+      - DATABASE=mongodb+srv://development:PUvFHsb3l47Ez524@cluster0.c5cjb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - PORT=8888
+      - NODE_OPTIONS=--openssl-legacy-provider
+      - JWT_SECRET=secret_key_1234
 
-  # Frontend (React.js) Service
+    command: sh -c "npm run setup && npm run dev"
+
+    networks:
+      - server-mongo
+
+    depends_on:
+      - mongo
+
   frontend:
-    build:
-      context: ./frontend  # Path to the frontend directory
-    ports:
-      - "3000:3000"  # Map the frontend port
+    build: ./frontend
     volumes:
-      - ./frontend:/app  # Sync frontend code to /app in the container
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
     environment:
-      VITE_FILE_BASE_URL: "http://localhost:8888/"
-      VITE_BACKEND_SERVER: "http://localhost:8888/"
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://backend:8888/api
+      - NODE_OPTIONS=--openssl-legacy-provider
+
+    depends_on:
+      - backend
+
+  mongo:
+    image: mongo
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - server-mongo
 
 volumes:
-  mongo-data:  # Volume for MongoDB data
+  mongodb_data:
+
+networks:
+  server-mongo:
