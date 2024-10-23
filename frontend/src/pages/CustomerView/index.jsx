@@ -35,7 +35,7 @@ export default function CustomerView() {
       // },
     },
     {
-      title: translate('Discount'),
+      title: translate('Discount%'),
       dataIndex: 'discount',
     },
     {

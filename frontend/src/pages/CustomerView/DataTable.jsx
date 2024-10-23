@@ -27,26 +27,30 @@ import { selectLangDirection } from '@/redux/translate/selectors';
 export default function DataTable({ config, extra = [] }) {
   const translate = useLanguage();
 
-  const items = [
+  const products = [
     {
-      label: translate('Show'),
-      key: 'read',
-      icon: <EyeOutlined />,
+      name: 'Apple',
+      quantity: 5,
+      price: 1.5,
+      discount: 0.1,
+      amount: 7.5,
+      tax: 0.05,
     },
     {
-      label: translate('Edit'),
-      key: 'edit',
-      icon: <EditOutlined />,
+      name: 'Banana',
+      quantity: 3,
+      price: 0.75,
+      discount: 0.05,
+      amount: 2.14,
+      tax: 0.03,
     },
-    ...extra,
     {
-      type: 'divider',
-    },
-
-    {
-      label: translate('Delete'),
-      key: 'delete',
-      icon: <DeleteOutlined />,
+      name: 'Orange',
+      quantity: 2,
+      price: 1.25,
+      discount: 0.0,
+      amount: 2.5,
+      tax: 0.07,
     },
   ];
 
@@ -82,7 +86,7 @@ export default function DataTable({ config, extra = [] }) {
       <Table
         columns={config.dataTableColumns}
         rowKey={(item) => item._id}
-        dataSource={[]}
+        dataSource={products}
         pagination={{current: 1, pageSize: 10, total: 0}}
         loading={false}
         onChange={() => {}}
