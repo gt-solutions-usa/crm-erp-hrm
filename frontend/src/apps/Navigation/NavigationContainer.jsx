@@ -33,6 +33,8 @@ import {
   CodeSandboxOutlined,
   ShoppingCartOutlined,
   CheckSquareOutlined,
+  RedEnvelopeOutlined,
+  FileImageOutlined,
 } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { selectLangDirection } from '@/redux/translate/selectors';
@@ -76,19 +78,19 @@ function Sidebar({ collapsible, isMobile = false }) {
       // label: <Link to={'/crm/expenses'}>{translate('expenses')}</Link>,
     },
     {
-      key: 'expenses',
+      key: 'sale',
       icon: <MinusSquareOutlined />,
-      label: <Link to={'/crm/expenses'}>{translate('Sale')}</Link>,
+      label: <Link to={'/crm/sale'}>{translate('Sale')}</Link>,
     },
     {
-      key: 'expenses',
+      key: 'accounts',
       icon: <WalletOutlined />,
-      label: <Link to={'/crm/expenses'}>{translate('Accounts')}</Link>,
+      label: <Link to={'/crm/accounts'}>{translate('Accounts')}</Link>,
     },
     {
-      key: 'expenses',
+      key: 'report',
       icon: <FileOutlined />,
-      label: <Link to={'/crm/expenses'}>{translate('Report')}</Link>,
+      label: <Link to={'/crm/report'}>{translate('Report')}</Link>,
     },
     {
       key: 'pos',
@@ -98,16 +100,16 @@ function Sidebar({ collapsible, isMobile = false }) {
     {
       key: 'offer',
       icon: <CheckSquareOutlined />,
-      label: <Link to={'/crm/task'}>{translate('Task')}</Link>,
+      label: <Link to={'/crm/offer'}>{translate('Offer')}</Link>,
     },
     {
       key: 'media',
-      icon: <CheckSquareOutlined />,
+      icon: <FileImageOutlined />,
       label: <Link to={'/crm/media'}>{translate('Media')}</Link>,
     },
     {
       key: 'email',
-      icon: <CheckSquareOutlined />,
+      icon: <RedEnvelopeOutlined />,
       label: <Link to={'/crm/email'}>{translate('Email')}</Link>,
     },
     {

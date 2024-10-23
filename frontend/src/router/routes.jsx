@@ -1,5 +1,17 @@
+import Accounts from '@/pages/Accounts';
+import Attachment from '@/pages/Attachement';
 import CustomerView from '@/pages/CustomerView';
+import Email from '@/pages/Email';
 import LoadingPage from '@/pages/Loading';
+import Media from '@/pages/Media';
+import Note from '@/pages/Note';
+import Opportunity from '@/pages/Opportunity';
+import POS from '@/pages/POS';
+import Report from '@/pages/Report';
+import Sales from '@/pages/Sales';
+import Store from '@/pages/Store';
+import Task from '@/pages/Task';
+import Ticket from '@/pages/Ticket';
 import { lazy } from 'react';
 
 import { Navigate } from 'react-router-dom';
@@ -80,7 +92,7 @@ let routes = {
       element: <Dashboard />,
     },
     {
-      path: '/erp/customer',
+      path: '/customer',
       element: <CustomerView />,
     },
     {
@@ -94,6 +106,30 @@ let routes = {
     {
       path: '/erp/company',
       element: <Company />,
+    },
+    {
+      path: '/erp/opportunity',
+      element: <Opportunity />,
+    },
+    {
+      path: '/erp/task',
+      element: <Task />,
+    },
+    {
+      path: '/erp/task',
+      element: <Task />,
+    },
+    {
+      path: '/erp/note',
+      element: <Note />,
+    },
+    {
+      path: '/erp/attachment',
+      element: <Attachment />,
+    },
+    {
+      path: '/erp/ticket',
+      element: <Ticket />,
     },
     {
       path: '/crm/product',
@@ -209,6 +245,34 @@ let routes = {
     {
       path: '/crm/expenses',
       element: <Expense />,
+    },
+    {
+      path: '/crm/sale',
+      element: <Sales />,
+    },
+    {
+      path: '/crm/accounts',
+      element: <Accounts />,
+    },
+    {
+      path: '/crm/pos',
+      element: <POS />,
+    },
+    {
+      path: '/crm/email',
+      element: <Email />,
+    },
+    {
+      path: '/crm/media',
+      element: <Media />,
+    },
+    {
+      path: '/crm/store',
+      element: <Store />,
+    },
+    {
+      path: '/crm/report',
+      element: <Report />,
     },
     {
       path: 'category/expenses',

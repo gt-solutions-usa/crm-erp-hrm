@@ -18,12 +18,14 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 
 import { generate as uniqueId } from 'shortid';
+import { DialogClose } from '@radix-ui/react-dialog';
 
 export default function DataTable({ config, extra = [] }) {
   const translate = useLanguage();

@@ -63,11 +63,11 @@ function Sidebar({ collapsible, isMobile = false }) {
       label: <Link to={'/erp/company'}>{translate('companies')}</Link>,
     },
     {
-      key: 'lead',
+      key: 'opportunity',
       // icon: <FilterOutlined />,
       icon: <BulbOutlined />,
       // label: <Link to={'/erp/lead'}>{translate('leads')}</Link>,
-      label: <Link to={'/erp/lead'}>{translate('Opportunity')}</Link>,
+      label: <Link to={'/erp/opportunity'}>{translate('Opportunity')}</Link>,
     },
     {
       key: 'quote',
@@ -75,24 +75,24 @@ function Sidebar({ collapsible, isMobile = false }) {
       label: <Link to={'/erp/quote'}>{translate('Quote')}</Link>,
     },
     {
-      key: 'offer',
+      key: 'task',
       icon: <CheckSquareOutlined />,
-      label: <Link to={'/erp/offer'}>{translate('Task')}</Link>,
+      label: <Link to={'/erp/task'}>{translate('Task')}</Link>,
     },
     {
-      key: 'offer',
+      key: 'note',
       icon: <FileOutlined />,
-      label: <Link to={'/erp/offer'}>{translate('Note')}</Link>,
+      label: <Link to={'/erp/note'}>{translate('Note')}</Link>,
     },
     {
-      key: 'offer',
+      key: 'attachment',
       icon: <LinkOutlined />,
-      label: <Link to={'/erp/offer'}>{translate('Attachment')}</Link>,
+      label: <Link to={'/erp/attachment'}>{translate('Attachment')}</Link>,
     },
     {
-      key: 'offer',
+      key: 'ticket',
       icon: <TagOutlined />,
-      label: <Link to={'/erp/offer'}>{translate('Ticket')}</Link>,
+      label: <Link to={'/erp/ticket'}>{translate('Ticket')}</Link>,
     },
     {
       label: translate('Settings'),
