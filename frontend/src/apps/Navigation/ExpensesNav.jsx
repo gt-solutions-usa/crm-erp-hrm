@@ -55,44 +55,44 @@ function Sidebar({ collapsible, isMobile = false }) {
     {
       key: 'contact',
       icon: <UsergroupAddOutlined />,
-      label: <Link to={'/customer'}>{translate('Contact')}</Link>,
+      label: <Link to={'/erp/customer'}>{translate('Contact')}</Link>,
     },
     {
       key: 'company',
       icon: <ShopOutlined />,
-      label: <Link to={'/company'}>{translate('companies')}</Link>,
+      label: <Link to={'/erp/company'}>{translate('companies')}</Link>,
     },
     {
       key: 'lead',
       // icon: <FilterOutlined />,
       icon: <BulbOutlined />,
-      // label: <Link to={'/lead'}>{translate('leads')}</Link>,
-      label: <Link to={'/lead'}>{translate('Opportunity')}</Link>,
+      // label: <Link to={'/erp/lead'}>{translate('leads')}</Link>,
+      label: <Link to={'/erp/lead'}>{translate('Opportunity')}</Link>,
     },
     {
-      key: 'offer',
+      key: 'quote',
       icon: <FileOutlined />,
-      label: <Link to={'/offer'}>{translate('Quote')}</Link>,
+      label: <Link to={'/erp/quote'}>{translate('Quote')}</Link>,
     },
     {
       key: 'offer',
       icon: <CheckSquareOutlined />,
-      label: <Link to={'/offer'}>{translate('Task')}</Link>,
+      label: <Link to={'/erp/offer'}>{translate('Task')}</Link>,
     },
     {
       key: 'offer',
       icon: <FileOutlined />,
-      label: <Link to={'/offer'}>{translate('Note')}</Link>,
+      label: <Link to={'/erp/offer'}>{translate('Note')}</Link>,
     },
     {
       key: 'offer',
       icon: <LinkOutlined />,
-      label: <Link to={'/offer'}>{translate('Attachment')}</Link>,
+      label: <Link to={'/erp/offer'}>{translate('Attachment')}</Link>,
     },
     {
       key: 'offer',
       icon: <TagOutlined />,
-      label: <Link to={'/offer'}>{translate('Ticket')}</Link>,
+      label: <Link to={'/erp/offer'}>{translate('Ticket')}</Link>,
     },
     {
       label: translate('Settings'),
@@ -101,7 +101,7 @@ function Sidebar({ collapsible, isMobile = false }) {
       children: [
         {
           key: 'generalSettings',
-          label: <Link to={'/settings'}>{translate('settings')}</Link>,
+          label: <Link to={'/erp/settings'}>{translate('settings')}</Link>,
         },
 
         {

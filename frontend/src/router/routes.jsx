@@ -80,11 +80,11 @@ let routes = {
       element: <Dashboard />,
     },
     {
-      path: '/customer',
+      path: '/erp/customer',
       element: <CustomerView />,
     },
     {
-      path: '/crm/customer',
+      path: '/erp/customer',
       element: <Customer />,
     },
     {
@@ -92,7 +92,7 @@ let routes = {
       element: <People />,
     },
     {
-      path: '/crm/company',
+      path: '/erp/company',
       element: <Company />,
     },
     {
@@ -125,19 +125,19 @@ let routes = {
       element: <InvoiceRecordPayment />,
     },
     {
-      path: '/crm/quote',
+      path: '/erp/quote',
       element: <Quote />,
     },
     {
-      path: '/crm/quote/create',
+      path: '/erp/quote/create',
       element: <QuoteCreate />,
     },
     {
-      path: '/crm/quote/read/:id',
+      path: '/erp/quote/read/:id',
       element: <QuoteRead />,
     },
     {
-      path: '/crm/quote/update/:id',
+      path: '/erp/quote/update/:id',
       element: <QuoteUpdate />,
     },
     {
@@ -154,11 +154,19 @@ let routes = {
     },
 
     {
+      path: '/settings',
+      element: <Settings />,
+    },
+    {
+      path: '/erp/settings',
+      element: <Settings />,
+    },
+    {
       path: '/crm/settings',
       element: <Settings />,
     },
     {
-      path: '/crm/settings/edit/:settingsKey',
+      path: '/settings/edit/:settingsKey',
       element: <Settings />,
     },
     {
@@ -171,7 +179,7 @@ let routes = {
     },
 
     {
-      path: '/crm/settings/advanced',
+      path: '/settings/advanced',
       element: <AdvancedSettings />,
     },
     {
@@ -179,7 +187,7 @@ let routes = {
       element: <Profile />,
     },
     {
-      path: '/crm/lead',
+      path: '/erp/lead',
       element: <Lead />,
     },
     {

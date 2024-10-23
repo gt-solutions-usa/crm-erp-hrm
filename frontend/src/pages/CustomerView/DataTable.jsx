@@ -56,7 +56,6 @@ export default function DataTable({ config, extra = [] }) {
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentValue, setCurrentValue] = useState('Pizza');
 
   const handleOk = () => {
     setIsModalOpen(false);

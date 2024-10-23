@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import bg from './loadingBg.jpeg'
 import logo from './logo.png'
+import logoSmall from './logosm.png'
 
 
 const LoadingPage = () => {
@@ -31,7 +32,7 @@ const LoadingPage = () => {
 
   return (
     <div className='bg-black w-screen h-screen flex items-center justify-center'>
-      <img src="" className='absolute top-10 left-10' alt="" />
+      <img src={logoSmall} className='absolute top-5 left-12 w-48' alt="" />
       <div className='flex gap-16'>
         <div className='w-[10rem] h-[7rem] bg-sky-400 rounded-md flex items-center justify-center'>
           <Link to='/erp' className='w-[9.25rem] h-[6.25rem] hover:text-white bg-purple-950 flex items-center justify-center text-white text-2xl font-bold'>
