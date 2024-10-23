@@ -20,14 +20,14 @@ COPY .env ./
 # Copy the .env file into the current working directory
 
 # Build the React application
-# RUN npm run build
+RUN npm run build
 
 # Install serve to serve the built application
-# RUN npm install -g serve
+RUN npm install -g serve
 
 # Expose the port your frontend runs on
 EXPOSE 3001
 
 # Start the application using serve
-# CMD ["npm", "run", "preview"]
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "preview"]
+# CMD ["npm", "run", "dev"]
