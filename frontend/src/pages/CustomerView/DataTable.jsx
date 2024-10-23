@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import {
   EyeOutlined,
@@ -9,27 +9,28 @@ import {
   ArrowRightOutlined,
   ArrowLeftOutlined,
 } from '@ant-design/icons';
-import { Dropdown, Table, Button, Input } from 'antd';
+import { Dropdown, Table, Button, Input, Form, InputNumber, Select } from 'antd';
 import { PageHeader } from '@ant-design/pro-layout';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { crud } from '@/redux/crud/actions';
-import { selectListItems } from '@/redux/crud/selectors';
 import useLanguage from '@/locale/useLanguage';
-import { dataForTable } from '@/utils/dataStructure';
-import { useMoney, useDate } from '@/settings';
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 import { generate as uniqueId } from 'shortid';
-
-import { useCrudContext } from '@/context/crud';
-import { selectLangDirection } from '@/redux/translate/selectors';
 
 export default function DataTable({ config, extra = [] }) {
   const translate = useLanguage();
 
-  const products = [
+  const [products, setProducts] = useState([
     {
-      name: 'Apple',
+      name: 'Spaghetti',
       quantity: 5,
       price: 1.5,
       discount: 0.1,
@@ -37,7 +38,7 @@ export default function DataTable({ config, extra = [] }) {
       tax: 0.05,
     },
     {
-      name: 'Banana',
+      name: 'Pizza',
       quantity: 3,
       price: 0.75,
       discount: 0.05,
@@ -45,14 +46,30 @@ export default function DataTable({ config, extra = [] }) {
       tax: 0.03,
     },
     {
-      name: 'Orange',
+      name: 'Fried Chicken',
       quantity: 2,
       price: 1.25,
       discount: 0.0,
       amount: 2.5,
       tax: 0.07,
     },
-  ];
+  ]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentValue, setCurrentValue] = useState('Pizza');
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const onFinish = (values) => {
+    setProducts([...products, values]);
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -64,22 +81,102 @@ export default function DataTable({ config, extra = [] }) {
         extra={[
           <Input
             key={`searchFilterDataTable}`}
-            onChange={() => {}}
+            onChange={() => { }}
             placeholder={translate('search')}
             allowClear
           />,
-          <Button onClick={() => {}} key={`${uniqueId()}`} icon={<RedoOutlined />}>
+          <Button onClick={() => { }} key={`${uniqueId()}`} icon={<RedoOutlined />}>
             {translate('Refresh')}
           </Button>,
 
-          
-          <Button onClick={() => {}} type="primary">
-          Add New Item
-          </Button>
+          <>
+            <Dialog open={isModalOpen} onClose={handleCancel}>
+              <DialogTrigger>
+                <Button onClick={() => setIsModalOpen(true)} type="primary">
+                  Add New Item
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Add New Item</DialogTitle>
+                </DialogHeader>
+                <Form
+                  name="basic"
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}
+                  initialValues={{ remember: true }}
+                  onFinish={onFinish}
+                  autoComplete="off"
+                >
+                  <Form.Item
+                    label="Name"
+                    name="name"
+                    rules={[{ required: true, message: 'Please input product name!' }]}
+                  >
+                    <Select
+                      placeholder="Select a product"
+                      defaultValue='Pizza'
+                      options={[
+                        { value: 'Pizza', label: 'Pizza' },
+                        { value: 'Burger', label: 'Burger' },
+                        { value: 'Fries', label: 'Fries' },
+                        { value: 'Salad', label: 'Salad' },
+                        { value: 'Drink', label: 'Drink' },
+                      ]}
+                      onChange={(v) => {console.log(v)}}
+                    >
+                      
+                    </Select>
+                  </Form.Item>
+                  <Form.Item
+                    label="Quantity"
+                    name="quantity"
+                    rules={[{ required: true, message: 'Please input quantity!' }]}
+                  >
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item
+                    label="Price"
+                    name="price"
+                    rules={[{ required: true, message: 'Please input price!' }]}
+                  >
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item
+                    label="Discount"
+                    name="discount"
+                    rules={[{ required: true, message: 'Please input discount!' }]}
+                  >
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item
+                    label="Amount"
+                    name="amount"
+                    rules={[{ required: true, message: 'Please input amount!' }]}
+                  >
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item
+                    label="Tax"
+                    name="tax"
+                    rules={[{ required: true, message: 'Please input tax!' }]}
+                  >
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit">
+                      Submit
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </DialogContent>
+            </Dialog>
+          </>
+
         ]}
         style={{
           padding: '20px 0px',
-          direction:true
+          direction: true
         }}
       ></PageHeader>
 
@@ -87,9 +184,9 @@ export default function DataTable({ config, extra = [] }) {
         columns={config.dataTableColumns}
         rowKey={(item) => item._id}
         dataSource={products}
-        pagination={{current: 1, pageSize: 10, total: 0}}
+        pagination={{ current: 1, pageSize: 10, total: 0 }}
         loading={false}
-        onChange={() => {}}
+        onChange={() => { }}
         scroll={{ x: true }}
       />
     </>
