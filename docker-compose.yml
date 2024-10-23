@@ -26,14 +26,14 @@ services:
       NODE_ENV: "production"
       OPENSSL_CONF: '/dev/null'
       PUBLIC_SERVER_FILE: "http://localhost:8888/"
-      WEB_URL: "http://localhost:3001"
+      WEB_URL: "http://localhost:3000"
 
   # Frontend (React.js) Service
   frontend:
     build:
       context: ./frontend  # Path to the frontend directory
     ports:
-      - "3001:3001"  # Map the frontend port
+      - "3000:3000"  # Map the frontend port
     volumes:
       - ./frontend:/app  # Sync frontend code to /app in the container
     environment:
