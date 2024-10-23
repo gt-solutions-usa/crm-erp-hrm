@@ -3,11 +3,13 @@ import CrudModule from '@/modules/CrudModule/CrudModule';
 import EmployeeForm from '@/forms/EmployeeForm';
 import dayjs from 'dayjs';
 import { useDate } from '@/settings';
+import DataTable from './DataTable';
+import { CrudLayout } from '@/layout';
 
 export default function CustomerView() {
   const translate = useLanguage();
   const { dateFormat } = useDate();
-  const entity = 'employee';
+  const entity = 'food';
   const searchConfig = {
     displayLabels: ['name', 'surname'],
     searchFields: 'name,surname,birthday',
@@ -23,82 +25,64 @@ export default function CustomerView() {
     },
     {
       title: translate('Quantity'),
-      dataIndex: 'surname',
+      dataIndex: 'quantity',
     },
     {
       title: translate('Price'),
-      dataIndex: 'birthday',
+      dataIndex: 'price',
       // render: (date) => {
       //   return dayjs(date).format(dateFormat);
       // },
     },
     {
       title: translate('Discount'),
-      dataIndex: 'department',
+      dataIndex: 'discount',
     },
     {
       title: translate('Amount'),
-      dataIndex: 'position',
+      dataIndex: 'amount',
     },
     {
       title: translate('Tax%'),
-      dataIndex: 'phone',
+      dataIndex: 'tax',
     },
   ];
 
   const readColumns = [
     {
-      title: translate('first name'),
+      title: translate('Product'),
       dataIndex: 'name',
     },
     {
-      title: translate('last name'),
-      dataIndex: 'surname',
+      title: translate('Quantity'),
+      dataIndex: 'quantity',
     },
     {
-      title: translate('Birthday'),
-      dataIndex: 'birthday',
-      isDate: true,
+      title: translate('Price'),
+      dataIndex: 'price',
+      // render: (date) => {
+      //   return dayjs(date).format(dateFormat);
+      // },
     },
     {
-      title: translate('birthplace'),
-      dataIndex: 'birthplace',
+      title: translate('Discount'),
+      dataIndex: 'discount',
     },
     {
-      title: translate('gender'),
-      dataIndex: 'gender',
+      title: translate('Amount'),
+      dataIndex: 'amount',
     },
     {
-      title: translate('Department'),
-      dataIndex: 'department',
-    },
-    {
-      title: translate('Position'),
-      dataIndex: 'position',
-    },
-    {
-      title: translate('address'),
-      dataIndex: 'address',
-    },
-    {
-      title: translate('state'),
-      dataIndex: 'state',
-    },
-    {
-      title: translate('Phone'),
-      dataIndex: 'phone',
-    },
-    {
-      title: translate('Email'),
-      dataIndex: 'email',
+      title: translate('Tax%'),
+      dataIndex: 'tax',
     },
   ];
 
   const Labels = {
-    PANEL_TITLE: translate('employee'),
+    PANEL_TITLE: translate('Food'),
     DATATABLE_TITLE: translate('Food Item'),
     ADD_NEW_ENTITY: translate('Add New Item'),
-    ENTITY_NAME: translate('employee'),
+    ENTITY_NAME: translate('food'),
   };
 
   const configPage = {
@@ -112,13 +96,41 @@ export default function CustomerView() {
     searchConfig,
     deleteModalLabels,
   };
+
+  function FixHeaderPanel({ config }) {
+    const { crudContextAction } = useCrudContext();
+  
+    const { collapsedBox } = crudContextAction;
+  
+    const addNewItem = () => {
+      collapsedBox.close();
+    };
+  
+    return (
+      <Row gutter={8}>
+        <Col className="gutter-row" span={21}>
+          <SearchItem config={config} />
+        </Col>
+        <Col className="gutter-row" span={3}>
+          <Button onClick={addNewItem} block={true} icon={<PlusOutlined />}></Button>
+        </Col>
+      </Row>
+    );
+  }
   return (
     <div className='w-screen flex items-center'>
-    <CrudModule
-      createForm={<EmployeeForm />}
-      updateForm={<EmployeeForm isUpdateForm={true} />}
+    <CrudLayout
       config={config}
-    />
+      fixHeaderPanel={<FixHeaderPanel config={config} />}
+      // sidePanelBottomContent={
+      //   <CreateForm config={config} formElements={createForm} withUpload={withUpload} />
+      // }
+      // sidePanelTopContent={
+      //   <SidePanelTopContent config={config} formElements={updateForm} withUpload={withUpload} />
+      // }
+    >
+    <DataTable config={config} />
+    </CrudLayout>
     </div>
 
   );
