@@ -153,7 +153,7 @@ function Sidebar({ collapsible, isMobile = false }) {
       style={{
         overflow: 'auto',
         height: '100vh',
-        position: 'fixed',
+        position: 'relative',
         bottom: '20px',
         ...(!isMobile && {
           background: 'none',
@@ -166,7 +166,7 @@ function Sidebar({ collapsible, isMobile = false }) {
       theme={'light'}
     >
       <div className="logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-        <img src={logoIcon} alt="Logo" style={{ marginLeft: '-5px', height: '40px' }} />
+        <img src={logoIcon} alt="Logo" style={{ marginLeft: '-5px', height: '60px' }} />
 
         {!showLogoApp && (
           // <img

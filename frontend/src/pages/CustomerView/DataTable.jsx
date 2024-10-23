@@ -68,7 +68,10 @@ export default function DataTable({ config, extra = [] }) {
   };
 
   const onFinish = (values) => {
-    setProducts([...products, values]);
+    setProducts([...products, {
+      ...values,
+      name: 'Pizza'
+    }]);
     setIsModalOpen(false);
   };
 
@@ -112,7 +115,7 @@ export default function DataTable({ config, extra = [] }) {
                   <Form.Item
                     label="Name"
                     name="name"
-                    rules={[{ required: true, message: 'Please input product name!' }]}
+                    // rules={[{ required: true, message: 'Please input product name!' }]}
                   >
                     <Select
                       placeholder="Select a product"

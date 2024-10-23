@@ -36,12 +36,12 @@ const LoadingPage = () => {
       <div className='flex gap-16'>
         <div className='w-[10rem] h-[7rem] bg-sky-400 rounded-md flex items-center justify-center'>
           <Link to='/erp' className='w-[9.25rem] h-[6.25rem] hover:text-white bg-purple-950 flex items-center justify-center text-white text-2xl font-bold'>
-              ERP
+              CRM
           </Link>
         </div>
         <div className='w-[10rem] h-[7rem] bg-sky-400 rounded-md flex items-center justify-center'>
           <Link to='/crm' className='w-[9.25rem] h-[6.25rem] hover:text-white bg-purple-950 flex items-center justify-center text-white text-2xl font-bold'>
-              CRM
+            ERP
           </Link>
         </div>
         <div className='w-[10rem] h-[7rem] bg-sky-400 rounded-md flex items-center justify-center'>
