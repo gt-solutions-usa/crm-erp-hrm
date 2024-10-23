@@ -9,7 +9,7 @@ export const BASE_URL =
 
 export const WEBSITE_URL = import.meta.env.PROD
   ? 'http://cloud.idurarapp.com/'
-  : 'http://147.79.100.200:3000/';
+  : 'http://geniebrain.co.uk';
 export const DOWNLOAD_BASE_URL =
   import.meta.env.PROD || import.meta.env.VITE_DEV_REMOTE
     ? import.meta.env.VITE_BACKEND_SERVER + 'download/'
