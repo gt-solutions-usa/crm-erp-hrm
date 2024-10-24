@@ -36,8 +36,8 @@ const authUser = async (req, res, { user, databasePassword, password, UserPasswo
         sameSite: 'Lax',
         httpOnly: true,
         secure: false,
-        // domain: req.hostname,
-        domain: "http://geniebrain.co.uk/",
+        domain: req.hostname,
+        // domain: "http://geniebrain.co.uk/",
         path: '/',
         Partitioned: true,
       })
