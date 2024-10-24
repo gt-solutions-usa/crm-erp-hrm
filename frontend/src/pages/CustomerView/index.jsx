@@ -39,12 +39,12 @@ export default function CustomerView() {
       dataIndex: 'discount',
     },
     {
-      title: translate('Amount'),
-      dataIndex: 'amount',
-    },
-    {
       title: translate('Tax%'),
       dataIndex: 'tax',
+    },
+    {
+      title: translate('Amount'),
+      dataIndex: 'amount',
     },
   ];
 
@@ -69,12 +69,12 @@ export default function CustomerView() {
       dataIndex: 'discount',
     },
     {
-      title: translate('Amount'),
-      dataIndex: 'amount',
-    },
-    {
       title: translate('Tax%'),
       dataIndex: 'tax',
+    },
+    {
+      title: translate('Amount'),
+      dataIndex: 'amount',
     },
   ];
 
