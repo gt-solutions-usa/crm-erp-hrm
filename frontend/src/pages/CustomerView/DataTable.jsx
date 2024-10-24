@@ -30,6 +30,19 @@ import { DialogClose } from '@radix-ui/react-dialog';
 export default function DataTable({ config, extra = [] }) {
   const translate = useLanguage();
 
+  const foodOptions = [
+    { name: 'Spaghetti', price: 200 },
+    { name: 'Pizza', price: 800 },
+    { name: 'Fried Chicken', price: 300 },
+    { name: 'Burger', price: 450 },
+    { name: 'Fries', price: 100 },
+    { name: 'Soda', price: 70 },
+    { name: 'Water', price: 50 },
+    { name: 'Salad', price: 150 },
+    { name: 'Ice Cream', price: 100 },
+    { name: 'Cake', price: 1000 },
+  ];
+
   const [products, setProducts] = useState([
     {
       name: 'Spaghetti',
@@ -59,6 +72,15 @@ export default function DataTable({ config, extra = [] }) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [formData, setFormData] = useState({
+    name: 'Pizza',
+    quantity: 1,
+    price: 800,
+    discount: 0,
+    amount: 1,
+    tax: 0,
+  });
+
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -67,12 +89,49 @@ export default function DataTable({ config, extra = [] }) {
     setIsModalOpen(false);
   };
 
-  const onFinish = (values) => {
-    setProducts([...products, {
-      ...values,
-      name: 'Pizza'
-    }]);
+  const onFinish = () => {
+    setProducts([...products, formData]);
     setIsModalOpen(false);
+    setFormData({
+      name: 'Pizza',
+      quantity: 1,
+      price: 800,
+      discount: 0,
+      amount: 1,
+      tax: 0,
+    })
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log({ name, value})
+    setFormData({ ...formData, [name]: value});
+  };
+
+  const handleNameChange = (e) => {
+    const selectedFood = foodOptions.find((option) => option.name === e.target.value);
+    setFormData({
+      ...formData,
+      name: e.target.value,
+      price: selectedFood ? selectedFood.price : 0,
+      amount: (selectedFood ? selectedFood.price : 0) * formData.quantity - formData.discount,
+    });
+  };
+
+  const handleQuantityChange = (e) => {
+    setFormData({
+      ...formData,
+      quantity: parseInt(e.target.value),
+      amount: formData.price * parseInt(e.target.value) - formData.discount,
+    });
+  };
+
+  const handleDiscountChange = (e) => {
+    setFormData({
+      ...formData,
+      discount: parseInt(e.target.value),
+      amount: formData.price * formData.quantity - parseInt(e.target.value),
+    });
   };
 
   return (
@@ -104,75 +163,80 @@ export default function DataTable({ config, extra = [] }) {
                 <DialogHeader>
                   <DialogTitle>Add New Item</DialogTitle>
                 </DialogHeader>
-                <Form
-                  name="basic"
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}
-                  initialValues={{ remember: true }}
-                  onFinish={onFinish}
-                  autoComplete="off"
-                >
-                  <Form.Item
-                    label="Name"
-                    name="name"
-                    // rules={[{ required: true, message: 'Please input product name!' }]}
-                  >
-                    <Select
-                      placeholder="Select a product"
-                      defaultValue='Pizza'
-                      options={[
-                        { value: 'Pizza', label: 'Pizza' },
-                        { value: 'Burger', label: 'Burger' },
-                        { value: 'Fries', label: 'Fries' },
-                        { value: 'Salad', label: 'Salad' },
-                        { value: 'Drink', label: 'Drink' },
-                      ]}
-                      onChange={(v) => {console.log(v)}}
+                <div className="flex flex-col gap-4">
+                  <div className="flex gap-2 items-center">
+                    <label htmlFor="name">Name:</label>
+                    <select
+                      id="name"
+                      value={formData.name}
+                      onChange={handleNameChange}
+                      className="w-full border rounded px-3 py-2"
                     >
-                      
-                    </Select>
-                  </Form.Item>
-                  <Form.Item
-                    label="Quantity"
-                    name="quantity"
-                    rules={[{ required: true, message: 'Please input quantity!' }]}
-                  >
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item
-                    label="Price"
-                    name="price"
-                    rules={[{ required: true, message: 'Please input price!' }]}
-                  >
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item
-                    label="Discount"
-                    name="discount"
-                    rules={[{ required: true, message: 'Please input discount!' }]}
-                  >
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item
-                    label="Amount"
-                    name="amount"
-                    rules={[{ required: true, message: 'Please input amount!' }]}
-                  >
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item
-                    label="Tax"
-                    name="tax"
-                    rules={[{ required: true, message: 'Please input tax!' }]}
-                  >
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                      Submit
-                    </Button>
-                  </Form.Item>
-                </Form>
+                      {foodOptions.map((option) => (
+                        <option key={option.name} value={option.name}>
+                          {option.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <label htmlFor="quantity">Quantity:</label>
+                    <input
+                      type="number"
+                      id="quantity"
+                      value={formData.quantity}
+                      onChange={handleQuantityChange}
+                      className="w-full border rounded px-3 py-2"
+                    />
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <label htmlFor="price">Price:</label>
+                    <input
+                      type="number"
+                      id="price"
+                      value={formData.price}
+                      onChange={handleChange}
+                      className="w-full border rounded px-3 py-2"
+                      readOnly
+                    />
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <label htmlFor="discount">Discount:</label>
+                    <input
+                      type="number"
+                      id="discount"
+                      name='discount'
+                      value={formData.discount}
+                      onChange={handleDiscountChange}
+                      className="w-full border rounded px-3 py-2"
+                    />
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <label htmlFor="amount">Amount:</label>
+                    <input
+                      type="number"
+                      id="amount"
+                      value={formData.amount}
+                      onChange={handleChange}
+                      className="w-full border rounded px-3 py-2"
+                      readOnly
+                    />
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <label htmlFor="tax">Tax:</label>
+                    <input
+                      type="number"
+                      id="tax"
+                      name='tax'
+                      value={formData.tax}
+                      onChange={handleChange}
+                      className="w-full border rounded px-3 py-2"
+                    />
+                  </div>
+                  <button onClick={onFinish} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Submit
+                  </button>
+                </div>
               </DialogContent>
             </Dialog>
           </>
