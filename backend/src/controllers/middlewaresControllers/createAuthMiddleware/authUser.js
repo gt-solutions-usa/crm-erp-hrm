@@ -28,6 +28,7 @@ const authUser = async (req, res, { user, databasePassword, password, UserPasswo
       }
     ).exec();
 
+    
     res
       .status(200)
       .cookie('token', token, {
@@ -36,6 +37,7 @@ const authUser = async (req, res, { user, databasePassword, password, UserPasswo
         httpOnly: true,
         secure: false,
         domain: req.hostname,
+        // domain: "http://geniebrain.co.uk/",
         path: '/',
         Partitioned: true,
       })

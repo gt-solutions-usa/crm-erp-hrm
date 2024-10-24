@@ -20,7 +20,8 @@ const lang_state = storePersist.get('translate')
 
 const AUTH_INITIAL_STATE = {
   current: {},
-  isLoggedIn: false,
+  isLoggedIn: true,
+  // isLoggedIn: false,
   isLoading: false,
   isSuccess: false,
 };
