@@ -31,44 +31,19 @@ export default function DataTable({ config, extra = [] }) {
   const translate = useLanguage();
 
   const foodOptions = [
-    { name: 'Spaghetti', price: 200 },
-    { name: 'Pizza', price: 800 },
-    { name: 'Fried Chicken', price: 300 },
-    { name: 'Burger', price: 450 },
-    { name: 'Fries', price: 100 },
-    { name: 'Soda', price: 70 },
-    { name: 'Water', price: 50 },
-    { name: 'Salad', price: 150 },
-    { name: 'Ice Cream', price: 100 },
-    { name: 'Cake', price: 1000 },
+    { name: 'Spaghetti', price: 200, discount: 10, tax: 5 },
+    { name: 'Pizza', price: 800, discount: 5, tax: 3 },
+    { name: 'Fried Chicken', price: 300, discount: 0, tax: 7 },
+    { name: 'Burger', price: 450, discount: 10, tax: 5 },
+    { name: 'Fries', price: 100, discount: 5, tax: 3 },
+    { name: 'Soda', price: 70, discount: 0, tax: 7 },
+    { name: 'Water', price: 50, discount: 10, tax: 5 },
+    { name: 'Salad', price: 150, discount: 5, tax: 3 },
+    { name: 'Ice Cream', price: 100, discount: 0, tax: 7 },
+    { name: 'Cake', price: 1000, discount: 10, tax: 5 },
   ];
 
-  const [products, setProducts] = useState([
-    {
-      name: 'Spaghetti',
-      quantity: 5,
-      price: 1.5,
-      discount: 0.1,
-      amount: 7.5,
-      tax: 0.05,
-    },
-    {
-      name: 'Pizza',
-      quantity: 3,
-      price: 0.75,
-      discount: 0.05,
-      amount: 2.14,
-      tax: 0.03,
-    },
-    {
-      name: 'Fried Chicken',
-      quantity: 2,
-      price: 1.25,
-      discount: 0.0,
-      amount: 2.5,
-      tax: 0.07,
-    },
-  ]);
+  const [products, setProducts] = useState([]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -76,9 +51,9 @@ export default function DataTable({ config, extra = [] }) {
     name: 'Pizza',
     quantity: 1,
     price: 800,
-    discount: 0,
-    amount: 1,
-    tax: 0,
+    discount: 5,
+    amount: 782.80,
+    tax: 3,
   });
 
   const handleOk = () => {
@@ -96,17 +71,12 @@ export default function DataTable({ config, extra = [] }) {
       name: 'Pizza',
       quantity: 1,
       price: 800,
-      discount: 0,
-      amount: 1,
-      tax: 0,
+      discount: 5,
+      amount: 782.80,
+      tax: 3,
     })
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    console.log({ name, value})
-    setFormData({ ...formData, [name]: value});
-  };
 
   const handleNameChange = (e) => {
     const selectedFood = foodOptions.find((option) => option.name === e.target.value);
@@ -114,7 +84,9 @@ export default function DataTable({ config, extra = [] }) {
       ...formData,
       name: e.target.value,
       price: selectedFood ? selectedFood.price : 0,
-      amount: (selectedFood ? selectedFood.price : 0) * formData.quantity - formData.discount,
+      discount: selectedFood ? selectedFood.discount : 0,
+      tax: selectedFood ? selectedFood.tax : 0,
+      amount: ((selectedFood ? selectedFood.price : 0) * formData.quantity * (1-selectedFood.discount/100) * (1+selectedFood.tax/100)).toFixed(2),
     });
   };
 
@@ -122,15 +94,7 @@ export default function DataTable({ config, extra = [] }) {
     setFormData({
       ...formData,
       quantity: parseInt(e.target.value),
-      amount: formData.price * parseInt(e.target.value) - formData.discount,
-    });
-  };
-
-  const handleDiscountChange = (e) => {
-    setFormData({
-      ...formData,
-      discount: parseInt(e.target.value),
-      amount: formData.price * formData.quantity - parseInt(e.target.value),
+      amount: (formData.price * parseInt(e.target.value) * (1-formData.discount/100) * (1+formData.tax/100)).toFixed(2),
     });
   };
 
@@ -195,7 +159,6 @@ export default function DataTable({ config, extra = [] }) {
                       type="number"
                       id="price"
                       value={formData.price}
-                      onChange={handleChange}
                       className="w-full border rounded px-3 py-2"
                       readOnly
                     />
@@ -207,19 +170,7 @@ export default function DataTable({ config, extra = [] }) {
                       id="discount"
                       name='discount'
                       value={formData.discount}
-                      onChange={handleDiscountChange}
                       className="w-full border rounded px-3 py-2"
-                    />
-                  </div>
-                  <div className="flex gap-2 items-center">
-                    <label htmlFor="amount">Amount:</label>
-                    <input
-                      type="number"
-                      id="amount"
-                      value={formData.amount}
-                      onChange={handleChange}
-                      className="w-full border rounded px-3 py-2"
-                      readOnly
                     />
                   </div>
                   <div className="flex gap-2 items-center">
@@ -229,8 +180,17 @@ export default function DataTable({ config, extra = [] }) {
                       id="tax"
                       name='tax'
                       value={formData.tax}
-                      onChange={handleChange}
                       className="w-full border rounded px-3 py-2"
+                    />
+                  </div>
+                  <div className="flex gap-2 items-center">
+                    <label htmlFor="amount">Amount:</label>
+                    <input
+                      type="number"
+                      id="amount"
+                      value={formData.amount}
+                      className="w-full border rounded px-3 py-2"
+                      readOnly
                     />
                   </div>
                   <button onClick={onFinish} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
