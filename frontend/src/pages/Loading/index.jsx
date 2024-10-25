@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import bg from './loadingBg.jpeg';
-import logo from './logo.png';
+import logo from '@/style/images/logo-icon.png';
+
 import logoSmall from './logosm.png';
 
 const LoadingPage = () => {
@@ -12,15 +13,15 @@ const LoadingPage = () => {
     return (
       <div className="w-screen h-screen relative">
         <img src={bg} className="absolute w-full h-full -z-1 object-cover" alt="" />
-        <div className="relative z-10 w-full h-full flex justify-center items-center">
+        <div className="relative z-10 w-full h-full flex justify-center items-center top-[-4rem]">
           <div className="flex flex-col items-center">
             <img
-              style={{ width: '30vh', marginBottom: '30vh', height: 'auto' }}
+              // style={{ width: '30vh', marginBottom: '30vh', height: 'auto' }}
               src={logo}
-              className="w-[65rem]"
+              className="w-[25rem] mb-16"
               alt=""
             />
-            <div className="flex flex-col items-center relative -top-[200px]">
+            <div className="flex flex-col items-center ">
               <h2 className="text-5xl font-extrabold text-white">Welcome to Genie Brain</h2>
               <p className="text-xl font-extrabold text-white mb-14 mt-2">
                 AI powered ERP, HRM, CRM & POS
@@ -48,7 +49,7 @@ const LoadingPage = () => {
 
   return (
     <div className="bg-black w-screen h-screen flex items-center justify-center">
-      <img src={logoSmall} className="absolute top-5 left-12 w-48" alt="" />
+      <img src={logo} className="absolute top-10 left-12 w-56" alt="" />
       <div className="flex gap-16">
         <div className="w-[10rem] h-[7rem] bg-sky-400 rounded-md flex items-center justify-center">
           <Link
