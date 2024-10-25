@@ -70,7 +70,7 @@ export default function ErpCrmApp() {
 
         {isMobile ? (
           <Layout style={{ marginLeft: 0 }}>
-            <HeaderContent />
+            {location.pathname !== '/customer' && <HeaderContent />}
             <Content
               style={{
                 margin: '40px auto 30px',
@@ -85,7 +85,7 @@ export default function ErpCrmApp() {
           </Layout>
         ) : (
           <Layout>
-            <HeaderContent />
+            {location.pathname !== '/customer' && <HeaderContent />}
             <Content
               style={{
                 margin: PAGE==='' ? '' : '40px auto 30px',
