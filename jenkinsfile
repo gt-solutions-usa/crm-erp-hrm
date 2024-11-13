@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    environment {
+        CONTAINER_NAME = 'my-container' // Replace with your container name
+        IMAGE_NAME = 'my-image:latest' // Replace with your Docker image name
+    }
+
+    stages {
+        stage('Delete Existing Container') {
+            steps {
+                script {
+                    // Check if the container is running and stop and remove it
+                    def containerExists = sh(script: "docker ps -a -q -f name=${CONTAINER_NAME}", returnStdout: true).trim()
+                    if (containerExists) {
+                        echo "Deleting existing container ${CONTAINER_NAME}"
+                        sh "docker rm -f ${CONTAINER_NAME}"
+                    } else {
+                        echo "No existing container ${CONTAINER_NAME} found."
+                    }
+                }
+            }
+        }
+        
+        stage('Build New Container') {
+            steps {
+                script {
+                    echo "Building new container for ${IMAGE_NAME}"
+                    sh "docker build -t ${IMAGE_NAME} ."
+                    
+                    echo "Running new container ${CONTAINER_NAME}"
+                    sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+    }
+}
