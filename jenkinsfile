@@ -1,1 +1,26 @@
+pipeline {
+    agent any  // This means the pipeline will run on any available agent (worker node)
 
+    stages {
+        stage('Build and Deploy with Docker Compose') {
+            steps {
+                script {
+                    // Output to console
+                    echo "Building and starting services with Docker Compose"
+
+                    // Run Docker Compose to build images and start services
+                    sh 'docker-compose up -d --build'  // Ensure the image is rebuilt if necessary
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Docker Compose build and deploy was successful!'
+        }
+        failure {
+            echo 'Docker Compose build and deploy failed.'
+        }
+    }
+}
