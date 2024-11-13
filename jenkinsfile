@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        CONTAINER_NAME = 'my-container' // Replace with your container name
-        IMAGE_NAME = 'my-image:latest' // Replace with your Docker image name
+        CONTAINER_NAME = 'my-container'  // Replace with your container name
+        IMAGE_NAME = 'my-image:latest'  // Replace with your Docker image name
     }
 
     stages {
@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build New Container') {
             steps {
                 script {
@@ -30,6 +30,15 @@ pipeline {
                     
                     echo "Running new container ${CONTAINER_NAME}"
                     sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+                }
+            }
+        }
+
+        stage('Build with Docker Compose') {
+            steps {
+                script {
+                    echo "Starting services with Docker Compose"
+                    sh 'docker-compose up -d'
                 }
             }
         }
