@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        cron('H/2 * * * *')  // Runs every 2 minutes
+    }
+
     environment {
         CONTAINER_NAME = 'my-container'  // Replace with your container name
         IMAGE_NAME = 'my-image:latest'  // Replace with your Docker image name
@@ -22,23 +26,11 @@ pipeline {
             }
         }
 
-        stage('Build New Container') {
+        stage('Build and Deploy with Docker Compose') {
             steps {
                 script {
-                    echo "Building new container for ${IMAGE_NAME}"
-                    sh "docker build -t ${IMAGE_NAME} ."
-                    
-                    echo "Running new container ${CONTAINER_NAME}"
-                    sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
-                }
-            }
-        }
-
-        stage('Build with Docker Compose') {
-            steps {
-                script {
-                    echo "Starting services with Docker Compose"
-                    sh 'docker-compose up -d'
+                    echo "Building and starting services with Docker Compose"
+                    sh 'docker-compose up -d --build'  // Ensures the image is rebuilt if necessary
                 }
             }
         }
