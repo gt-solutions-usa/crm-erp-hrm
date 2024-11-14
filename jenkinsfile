@@ -1,61 +1,12 @@
 pipeline {
-    agent any  // This means the pipeline will run on any available agent (worker node)
-
-    environment {
-        // Optional: Define the Docker Compose version or set custom paths if needed
-        DOCKER_COMPOSE_VERSION = '1.29.2'  // Specify a specific version if needed
-    }
-
-    stages {
-        stage('Check Docker and Docker Compose') {
-            steps {
-                script {
-                    echo "Checking Docker installation..."
-                    // Checking if Docker is installed
-                    sh '''
-                    if ! command -v docker &> /dev/null; then
-                        echo "Docker could not be found!"
-                        exit 1
-                    fi
-                    docker --version
-                    '''
-                    
-                    echo "Checking Docker Compose installation..."
-                    // Checking if Docker Compose is installed
-                    sh '''
-                    if ! command -v docker-compose &> /dev/null; then
-                        echo "Docker Compose could not be found!"
-                        exit 1
-                    fi
-                    docker-compose --version
-                    '''
-                }
-            }
-        }
-
-        stage('Build and Deploy with Docker Compose') {
+    agent any
+    
+stage('Build and Deploy with Docker Compose') {
             steps {
                 script {
                     echo "Building and starting services with Docker Compose"
-                    
-                    // Running Docker Compose to build images and start services
-                    def result = sh(script: 'docker-compose up -d --build', returnStatus: true)
-
-                    // If the command failed, throw an error and stop the pipeline
-                    if (result != 0) {
-                        error "Docker Compose build and deploy failed with status: ${result}"
-                    }
+                    sh 'docker-compose up -d --build'  // Ensures the image is rebuilt if necessary
                 }
             }
         }
     }
-
-    post {
-        success {
-            echo 'Docker Compose build and deploy was successful!'
-        }
-        failure {
-            echo 'Docker Compose build and deploy failed. Check the logs for details.'
-        }
-    }
-}
