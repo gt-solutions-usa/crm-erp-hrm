@@ -1,33 +1,19 @@
 pipeline {
-    agent any
-
-
-    environment {
-        CONTAINER_NAME = 'my-container'  // Replace with your container name
-        IMAGE_NAME = 'my-image:latest'  // Replace with your Docker image name
-    }
+    agent any  // This means the pipeline will run on any available agent
 
     stages {
-        stage('Delete Existing Container') {
+        stage('Build Docker Compose Up') {
             steps {
                 script {
-                    // Check if the container is running and stop and remove it
-                    def containerExists = sh(script: "docker ps -a -q -f name=${CONTAINER_NAME}", returnStdout: true).trim()
-                    if (containerExists) {
-                        echo "Deleting existing container ${CONTAINER_NAME}"
-                        sh "docker rm -f ${CONTAINER_NAME}"
-                    } else {
-                        echo "No existing container ${CONTAINER_NAME} found."
-                    }
-                }
-            }
-        }
+                    // Ensure Docker is installed and running
+                    sh 'docker --version'  // Verify Docker is installed
+                    sh 'docker-compose --version'  // Verify Docker Compose is installed
 
-        stage('Build and Deploy with Docker Compose') {
-            steps {
-                script {
-                    echo "Building and starting services with Docker Compose"
-                    sh 'docker-compose up -d --build'  // Ensures the image is rebuilt if necessary
+                    // Run docker-compose up in detached mode
+                    sh 'docker-compose up -d'
+
+                    // Optionally, check logs for debugging purposes
+                    sh 'docker-compose logs'
                 }
             }
         }
@@ -35,7 +21,8 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline completed.'
+            // Clean up Docker Compose containers after the pipeline finishes
+            sh 'docker-compose down'
         }
     }
 }
