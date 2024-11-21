@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        CONTAINER_NAME = 'my-container' // Replace with your container name
-        IMAGE_NAME = 'my-image:latest' // Replace with your Docker image name
+        CONTAINER_NAME = 'jenkins' // Replace with your container name
+        IMAGE_NAME = 'lts' // Replace with your Docker image name
     }
 
     stages {
@@ -11,12 +11,12 @@ pipeline {
             steps {
                 script {
                     // Check if the container is running and stop and remove it
-                    def containerExists = sh(script: "docker ps -a -q -f name=${CONTAINER_NAME}", returnStdout: true).trim()
+                    def containerExists = sh(script: "docker ps -a -q -f name=${jenkins}", returnStdout: true).trim()
                     if (containerExists) {
-                        echo "Deleting existing container ${CONTAINER_NAME}"
-                        sh "docker rm -f ${CONTAINER_NAME}"
+                        echo "Deleting existing container ${jenkins}"
+                        sh "docker rm -f ${jenkins}"
                     } else {
-                        echo "No existing container ${CONTAINER_NAME} found."
+                        echo "No existing container ${jenkins} found."
                     }
                 }
             }
@@ -25,11 +25,11 @@ pipeline {
         stage('Build New Container') {
             steps {
                 script {
-                    echo "Building new container for ${IMAGE_NAME}"
-                    sh "docker build -t ${IMAGE_NAME} ."
+                    echo "Building new container for ${lts}"
+                    sh "docker build -t ${lts} ."
                     
-                    echo "Running new container ${CONTAINER_NAME}"
-                    sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
+                    echo "Running new container ${jenkins}"
+                    sh "docker run -d --name ${jenkins} ${lts}"
                 }
             }
         }
