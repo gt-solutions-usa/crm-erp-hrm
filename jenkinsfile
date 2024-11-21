@@ -1,43 +1,14 @@
 pipeline {
     agent any
 
-    environment {
-        CONTAINER_NAME = 'jenkins' // Replace with your container name
-        IMAGE_NAME = 'lts' // Replace with your Docker image name
-    }
-
     stages {
-        stage('Delete Existing Container') {
+        stage('Build and Deploy') {
             steps {
                 script {
-                    // Check if the container is running and stop and remove it
-                    def containerExists = sh(script: "docker ps -a -q -f name=${jenkins}", returnStdout: true).trim()
-                    if (containerExists) {
-                        echo "Deleting existing container ${jenkins}"
-                        sh "docker rm -f ${jenkins}"
-                    } else {
-                        echo "No existing container ${jenkins} found."
-                    }
+                    // Run docker-compose up with build and detached mode
+                    sh 'docker-compose up --build -d'
                 }
             }
-        }
-        
-        stage('Build New Container') {
-            steps {
-                script {
-                    echo "Building new container for ${lts}"
-                    sh "docker build -t ${lts} ."
-                    
-                    echo "Running new container ${jenkins}"
-                    sh "docker run -d --name ${jenkins} ${lts}"
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline completed.'
         }
     }
 }
