@@ -8,8 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Git repository se code clone karna
-                git 'https://github.com/gt-solutions-usa/crm-erp-hrm.git'
+               
             }
         }
 
