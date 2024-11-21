@@ -2,39 +2,34 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
+        CONTAINER_NAME = 'my-container' // Replace with your container name
+        IMAGE_NAME = 'my-image:latest' // Replace with your Docker image name
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-               
-            }
-        }
-
-        stage('Build & Start Docker Containers') {
+        stage('Delete Existing Container') {
             steps {
                 script {
-                    // Docker Compose up command se containers ko build aur run karna
-                    sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} up --build -d'
+                    // Check if the container is running and stop and remove it
+                    def containerExists = sh(script: "docker ps -a -q -f name=${CONTAINER_NAME}", returnStdout: true).trim()
+                    if (containerExists) {
+                        echo "Deleting existing container ${CONTAINER_NAME}"
+                        sh "docker rm -f ${CONTAINER_NAME}"
+                    } else {
+                        echo "No existing container ${CONTAINER_NAME} found."
+                    }
                 }
             }
         }
-
-        stage('Run Tests') {
+        
+        stage('Build New Container') {
             steps {
                 script {
-                    // Agar aapko test run karna ho to yahan test script run kar sakte hain
-                    sh 'docker-compose exec -T app npm test' // 'app' service ko replace karein apne service ke naam se
-                }
-            }
-        }
-
-        stage('Clean Up') {
-            steps {
-                script {
-                    // Docker containers ko shutdown karna
-                    sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} down'
+                    echo "Building new container for ${IMAGE_NAME}"
+                    sh "docker build -t ${IMAGE_NAME} ."
+                    
+                    echo "Running new container ${CONTAINER_NAME}"
+                    sh "docker run -d --name ${CONTAINER_NAME} ${IMAGE_NAME}"
                 }
             }
         }
@@ -42,8 +37,7 @@ pipeline {
 
     post {
         always {
-            // Pipeline ke end mein clean up karna
-            sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} down || true'
+            echo 'Pipeline completed.'
         }
     }
 }
