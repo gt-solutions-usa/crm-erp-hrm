@@ -55,7 +55,7 @@ IDURAR is a free open-source ERP & CRM app based on the "mern-stack". It utilize
 - Tasks can be assigned to team members, deadlines can be set, and progress can be monitored.
 - Resources can be allocated and project expenses can be tracked.
 - Collaboration features such as document sharing and real-time communication are offered.
-
+ 
 ## Reporting and Analytics:
 
 - Comprehensive reports and analytics are generated on various aspects of the business.
