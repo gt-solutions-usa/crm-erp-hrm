@@ -1,19 +1,41 @@
 pipeline {
-    agent any  // This means the pipeline will run on any available agent
+    agent any
+
+    environment {
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
+    }
 
     stages {
-        stage('Build Docker Compose Up') {
+        stage('Checkout') {
+            steps {
+                // Git repository se code clone karna
+                git ''
+            }
+        }
+
+        stage('Build & Start Docker Containers') {
             steps {
                 script {
-                    // Ensure Docker is installed and running
-                    sh 'docker --version'  // Verify Docker is installed
-                    sh 'docker-compose --version'  // Verify Docker Compose is installed
+                    // Docker Compose up command se containers ko build aur run karna
+                    sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} up --build -d'
+                }
+            }
+        }
 
-                    // Run docker-compose up in detached mode
-                    sh 'docker-compose up -d'
+        stage('Run Tests') {
+            steps {
+                script {
+                    // Agar aapko test run karna ho to yahan test script run kar sakte hain
+                    sh 'docker-compose exec -T app npm test' // 'app' service ko replace karein apne service ke naam se
+                }
+            }
+        }
 
-                    // Optionally, check logs for debugging purposes
-                    sh 'docker-compose logs'
+        stage('Clean Up') {
+            steps {
+                script {
+                    // Docker containers ko shutdown karna
+                    sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} down'
                 }
             }
         }
@@ -21,8 +43,8 @@ pipeline {
 
     post {
         always {
-            // Clean up Docker Compose containers after the pipeline finishes
-            sh 'docker-compose down'
+            // Pipeline ke end mein clean up karna
+            sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} down || true'
         }
     }
 }
