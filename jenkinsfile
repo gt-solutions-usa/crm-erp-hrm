@@ -1,5 +1,24 @@
-pipeline {
+ pipeline {
     agent any
+  
+    stages {
+        stage('Remove Docker Containers') {
+            steps {
+                script {
+                    // Remove 3 specific Docker containers
+                    sh 'docker rm -f gt-project_frontend_1 gt-project_backend_1 gt-project_mongo_1'
+                }
+            }
+        }
+        
+        stage('Remove Docker Images') {
+            steps {
+                script {
+                    // Example: Remove specific Docker images
+                    sh 'docker rmi -f e2ba15227012 d65932b6aa29 df3f01eba940'
+                }
+            }
+        }
         
         stage('Build and Deploy') {
             steps {
@@ -11,3 +30,4 @@ pipeline {
         }
     }
 }
+
